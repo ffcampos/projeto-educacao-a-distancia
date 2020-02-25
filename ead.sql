@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Tempo de geração: 24-Fev-2020 às 23:22
+-- Tempo de geração: 25-Fev-2020 às 22:07
 -- Versão do servidor: 5.7.28
 -- versão do PHP: 7.3.12
 
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `aulas` (
   `ordem` int(11) NOT NULL,
   `tipo` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `aulas`
@@ -116,7 +116,11 @@ INSERT INTO `aulas` (`id`, `id_modulo`, `id_curso`, `ordem`, `tipo`) VALUES
 (4, 2, 1, 2, 'poll'),
 (5, 3, 1, 1, 'video'),
 (6, 3, 1, 2, 'video'),
-(7, 3, 1, 3, 'video');
+(8, 1, 1, 3, 'video'),
+(9, 1, 1, 4, 'video'),
+(10, 1, 1, 5, 'video'),
+(11, 1, 1, 6, 'video'),
+(12, 1, 1, 7, 'video');
 
 -- --------------------------------------------------------
 
@@ -204,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `modulos` (
   `nome` varchar(50) NOT NULL,
   `id_curso` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `modulos`
@@ -213,8 +217,7 @@ CREATE TABLE IF NOT EXISTS `modulos` (
 INSERT INTO `modulos` (`id`, `nome`, `id_curso`) VALUES
 (1, 'Básico', 1),
 (2, 'Intermediário', 1),
-(3, 'Avançado', 1),
-(11, 'Super Avançado 2', 1);
+(3, 'Avançado', 1);
 
 -- --------------------------------------------------------
 
@@ -275,9 +278,9 @@ CREATE TABLE IF NOT EXISTS `videos` (
   `id_aula` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `descricao` text,
-  `url` varchar(100) NOT NULL,
+  `url` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `videos`
@@ -289,7 +292,7 @@ INSERT INTO `videos` (`id`, `id_aula`, `nome`, `descricao`, `url`) VALUES
 (3, 3, 'Aula 3', NULL, '391941242'),
 (4, 5, 'Aula 4', NULL, '391941242'),
 (5, 6, 'Aula 5', NULL, '391941242'),
-(6, 7, 'Aula 6', NULL, '391941242');
+(7, 12, 'Aula 20', NULL, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
