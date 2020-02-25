@@ -62,10 +62,21 @@
 							);
 			$cursos = new Cursos();
 			$modulos = new Modulos();
+			$aulas = new Aulas();
 			
 			$dados['curso'] = $cursos->getCursoById($id);
 			$dados['modulos'] = $modulos->getAulasDoModulo($id);
 			
+			// USUARIO ADICIONOU AULA NOVA
+			if(isset($_POST['aula']) && !empty($_POST['aula'])){
+				$aula = addslashes($_POST['aula']);
+				$moduloAula = addslashes($_POST['moduloAula']);
+				$tipo = addslashes($_POST['tipo']);
+
+				$aulas->addAula($moduloAula, $id, $tipo, $aula);
+
+			}
+
 			if(isset($_POST['modulo']) && !empty($_POST['modulo'])){
 				$modulo = utf8_decode(addslashes($_POST['modulo']));
 				$modulos->adicionarModulo($modulo, $id);
@@ -95,6 +106,8 @@
 			}
 			
 			
+			
+
 			$this->loadTemplate("curso_edit", $dados);
 		}
 		
@@ -123,6 +136,20 @@
 				
 				$this->loadTemplate("curso_edit_modulo", $dados);
 			}
+		}
+
+		public function del_aula($id){
+
+			if(isset($id) && !empty($id)){
+				$id = addslashes($id);
+				$aulas = new Aulas();
+				$id_curso = $aulas->deleteAula($id);
+				header("Location: ".BASE_URL."/home/editar/".$id_curso['id_curso']);
+
+			}
+			
+
+
 		}
 	}
 ?>
