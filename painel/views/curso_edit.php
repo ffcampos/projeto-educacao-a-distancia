@@ -44,6 +44,6 @@
 	<h4><?php echo utf8_encode($modulo['nome']); ?> - <a onclick="return confirm('Deseja realmente excluir?')"href="<?php echo BASE_URL; ?>/home/del_modulo/<?php echo $modulo['id']; ?>">[Excluir]</a> - <a href="<?php echo BASE_URL; ?>/home/edit_modulo/<?php echo $modulo['id']; ?>">[Editar]</a></h4>
 
 	<?php foreach($modulo['aulas'] as $aula): ?>
-		<h5><?php echo $aula['nome']; ?> <a href="">[Editar]</a> - <a href="<?php echo BASE_URL; ?>/home/del_aula/<?php echo $aula['id']; ?>">[Excluir]</a></h5>
+		<h5><?php echo $aula['nome']; ?> <a href="<?php echo BASE_URL; ?>/home/edit_aula/<?php echo $aula['id']; ?>">[Editar]</a> - <a onclick="return confirm('Deseja realmente excluir?')" href="<?php echo BASE_URL; ?>/home/del_aula/<?php echo $aula['id']; ?>">[Excluir]</a></h5>
 	<?php endforeach; ?>
 <?php endforeach; ?>

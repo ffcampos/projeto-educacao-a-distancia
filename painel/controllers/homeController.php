@@ -147,9 +147,45 @@
 				header("Location: ".BASE_URL."/home/editar/".$id_curso['id_curso']);
 
 			}
-			
+		}
 
+		public function edit_aula($id){
+			$dados = array("aula" => array());
+			$view = 'curso_edit_aula_video';
 
+			$aulas = new Aulas();
+			$dados['aula'] = $aulas->getAula($id);
+
+			if($dados['aula']['tipo'] == 'poll'){
+				$view = 'curso_edit_aula_poll';
+
+			}
+
+			if(isset($_POST['nome']) && !empty($_POST['nome'])){
+
+				$nome = addslashes($_POST['nome']);
+				$descricao = addslashes($_POST['descricao']);
+				$url = addslashes($_POST['url']);
+				$id_curso = $aulas->editAulaVideo($id, $nome, $descricao, $url);
+				header("Location: ".BASE_URL."/home/editar/".$id_curso['id_curso']);
+
+			}
+
+			if(isset($_POST['pergunta']) && !empty($_POST['pergunta'])){
+
+				$pergunta = utf8_decode(addslashes($_POST['pergunta']));
+				$opcao1 = utf8_decode(addslashes($_POST['opcao1']));
+				$opcao2 = utf8_decode(addslashes($_POST['opcao2']));
+				$opcao3 = utf8_decode(addslashes($_POST['opcao3']));
+				$opcao4 = utf8_decode(addslashes($_POST['opcao4']));
+				$resposta = addslashes($_POST['resposta']);
+
+				$id_curso = $aulas->editAulaPoll($pergunta, $opcao1, $opcao2, $opcao3, $opcao4, $resposta, $id);
+				header("Location: ".BASE_URL."/home/editar/".$id_curso['id_curso']);
+
+			}
+
+			$this->loadTemplate($view, $dados);
 		}
 	}
 ?>

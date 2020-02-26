@@ -5,6 +5,36 @@
 		public function __construct(){
 			parent::__construct();
 		}
+
+		public function getAula($id_aula){
+			$retorno = array();
+			$sql = "SELECT tipo FROM aulas WHERE id = '$id_aula'";
+			$sql = $this->pdo->query($sql);
+
+			if($sql->rowCount() > 0){
+				$row = $sql->fetch();
+				if($row['tipo'] == 'video'){
+					$sql = "SELECT nome, descricao, url FROM videos WHERE id_aula = '$id_aula'";
+					$sql = $this->pdo->query($sql);
+					if($sql->rowCount() > 0){
+						$retorno = $sql->fetch();
+						$retorno['tipo'] = 'video';
+					}
+				}else{
+					$sql = "SELECT * FROM questionarios WHERE id_aula = '$id_aula'";
+					$sql = $this->pdo->query($sql);
+					if($sql->rowCount() > 0){
+						$retorno = $sql->fetch();
+						$retorno['tipo'] = 'poll';
+
+					}
+				}
+			}
+
+
+			return $retorno;
+
+		}
 		
 		public function getAulasDoModulo($id){
 			$retorno = array();
@@ -84,5 +114,37 @@
 			}
 
 		}
+
+		public function editAulaVideo($id_aula, $nome, $descricao, $url){
+			$retorno = 0;
+			$sql = "SELECT id_curso FROM aulas WHERE id = '$id_aula'";
+			$sql = $this->pdo->query($sql);
+
+			if($sql->rowCount() > 0){
+				$retorno = $sql->fetch();
+			}
+
+			$sql = "UPDATE videos SET nome = '$nome', descricao = '$descricao', url = '$url' WHERE id_aula = '$id_aula'";
+			$sql = $this->pdo->query($sql);
+
+			return $retorno;
+		}
+
+		public function editAulaPoll($pergunta, $opcao1, $opcao2, $opcao3, $opcao4, $resposta, $id){
+
+			$retorno = array();
+			$sql = "SELECT id_curso FROM aulas WHERE id = '$id'";
+			$sql = $this->pdo->query($sql);
+
+			if($sql->rowCount() > 0){
+				$retorno = $sql->fetch();
+			}
+
+			$sql = "UPDATE questionarios SET pergunta = '$pergunta', opcao1 = '$opcao1', opcao2 = '$opcao2', opcao3 = '$opcao3', opcao4 = '$opcao4', resposta = '$resposta' WHERE id_aula = '$id'";
+			$sql = $this->pdo->query($sql);
+
+			return $retorno;
+		}
+
 	}
 ?>
