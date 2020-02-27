@@ -16,10 +16,9 @@
 </head>
 <body>
 	<div class="topo">
-	
-		<a href="<?php echo BASE_URL; ?>/login/logout"><div>Sair</div></a>
-		
-		
+		<a href="<?php echo BASE_URL; ?>"><div>Cursos</div></a>
+		<a href="<?php echo BASE_URL; ?>/alunos"><div>Alunos</div></a>
+		<a href="<?php echo BASE_URL; ?>/login/logout"><div style="float:right">Sair</div></a>
 	</div>
 	
 	<div class="container">

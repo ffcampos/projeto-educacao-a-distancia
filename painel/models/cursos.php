@@ -6,7 +6,8 @@
 			parent::__construct();
 			
 		}
-		
+
+				
 		public function getCursos(){
 			$retorno = array();
 			$sql = "SELECT *, (select count(*) from aluno_curso where aluno_curso.id_curso = cursos.id) as qt_alunos FROM cursos ORDER BY cursos.nome ASC";
@@ -86,6 +87,23 @@
 				$sql = "UPDATE cursos SET nome = '$nome', descricao = '$descricao' WHERE id = '$id'";
 			}
 			$sql = $this->pdo->query($sql);
+		}
+
+		public function getCursosInscrito($id_aluno){
+			$retorno = array();
+
+			$sql = "SELECT id_curso FROM aluno_curso WHERE id_aluno = '$id_aluno'";
+			$sql = $this->pdo->query($sql);
+
+			if($sql->rowCount() > 0){
+
+				$rows = $sql->fetchAll();
+				foreach($rows as $row){
+					$retorno[] = $row['id_curso'];
+				}
+			}
+
+			return $retorno;
 		}
 		
 		

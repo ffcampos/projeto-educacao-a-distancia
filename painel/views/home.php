@@ -1,5 +1,7 @@
 <h1>Cursos</h1>
-<a href="<?php echo BASE_URL; ?>/home/adicionar">Adicionar Curso</a>
+
+<div class="btn_adicionar"><a href="<?php echo BASE_URL; ?>/home/adicionar" >Adicionar Curso</a></div>
+<hr/>
 <table border="0" width="100%">
 	<tr>
 		<th>Imagem</th>
