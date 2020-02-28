@@ -34,6 +34,11 @@
 				
 				$modulos = new Modulos();
 				$dados['modulos'] = $modulos->getModulos($id_curso);
+
+				//PEGANDO NUMERO DE AULAS ASSISTIDAS
+				$dados['aulas_assistidas'] = $alunos->getNumAulasAssistidas($id_curso);
+				//PEGANDO O TOTAL DE AULAS ASSISTIDAS
+				$dados['total_aulas'] = $cursos->getTotalAulas();
 				
 				$this->loadTemplate("curso_entrar", $dados);
 				
@@ -65,8 +70,15 @@
 				
 				$modulos = new Modulos();
 				$dados['modulos'] = $modulos->getModulos($id_curso);
+
+				//PEGANDO NUMERO DE AULAS ASSISTIDAS
+				$dados['aulas_assistidas'] = $alunos->getNumAulasAssistidas($id_curso);
+
+				//PEGANDO O TOTAL DE AULAS ASSISTIDAS
+				$dados['total_aulas'] = $curso->getTotalAulas();
 				
 				$dados['aula_info'] = $aula->getAula($id_aula, $alunos->getId());
+				$dados['idAula'] = $id_aula;
 				
 				//DEFININDO QUAL VIEW CHAMAR MEDIANTE O RETORNO DA AULA
 				if($dados['aula_info']['tipo'] == 'video'){
@@ -93,6 +105,10 @@
 					
 					if($opcao == $dados['aula_info']['resposta']){
 						$dados['resposta'] = true;
+						$data = date('Y-m-d H:i:s');
+						$id_aluno = $_SESSION['aluno'];
+						
+						$aula->marcarAssistido($id_aula, $data, $id_aluno);
 					}else{
 						$dados['resposta'] = false;
 					}

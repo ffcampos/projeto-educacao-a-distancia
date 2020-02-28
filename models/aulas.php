@@ -6,8 +6,22 @@
 			parent::__construct();
 		}
 		
+		private function isAssistido($id_aula, $id_aluno){
+
+			$sql = "SELECT * FROM historico WHERE id_aula = '$id_aula' AND id_aluno = '$id_aluno'";
+			$sql = $this->pdo->query($sql);
+
+			if($sql->rowCount() > 0){
+				return true;
+			}else{
+				return false;
+			}
+
+		}
+
 		public function getAulasDoModulo($id){
 			$retorno = array();
+			$aluno = $_SESSION['aluno'];
 			
 			$sql = "SELECT * FROM aulas WHERE id_modulo = '$id' ORDER BY ordem";
 			$sql = $this->pdo->query($sql);
@@ -15,6 +29,7 @@
 			if($sql->rowCount() > 0){
 				$retorno = $sql->fetchAll();
 				foreach($retorno as $aulaChave => $aula){
+					$retorno[$aulaChave]['assistido'] = $this->isAssistido($aula['id'], $aluno);
 					if($aula['tipo'] == 'video'){
 						
 						$sql = "SELECT nome FROM videos WHERE id_aula = '".($aula['id'])."'";
@@ -91,6 +106,8 @@
 			$sql = "INSERT INTO historico SET data_vista = '$data', id_aluno = '$id_aluno', id_aula = '$id_aula'";
 			$sql = $this->pdo->query($sql);
 		}
+
+
 	}
 ?>
 

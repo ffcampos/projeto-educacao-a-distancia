@@ -38,6 +38,17 @@
 		public function getDescricao(){
 			return $this->info['descricao'];
 		}
+		public function getId(){
+			return $this->info['id'];
+		}
+
+		public function getTotalAulas(){
+
+			$sql = "SELECT id FROM aulas WHERE id_curso = '".($this->getId())."'";
+			$sql = $this->pdo->query($sql);
+
+			return $sql->rowCount();
+		}
 	}
 ?>
 

@@ -61,6 +61,14 @@
 				return false;
 			}
 		}
+
+		public function getNumAulasAssistidas($id_curso){
+
+			$sql = "SELECT id FROM historico WHERE id_aluno = '".$this->getId()."' AND id_aula IN (select aulas.id from aulas where aulas.id_curso = '$id_curso')";
+			$sql = $this->pdo->query($sql);
+			return $sql->rowCount();
+		}
+
 		
 	}
 ?>
